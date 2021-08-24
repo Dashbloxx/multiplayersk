@@ -61,6 +61,8 @@ class FoodService {
             food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.SUPER.TYPE, ServerConfig.FOOD.SUPER.COLOR);
         } else {
             food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.NORMAL.TYPE, ServerConfig.FOOD.NORMAL.COLOR);
+        } else {
+            food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.PURPLE.TYPE, ServerConfig.FOOD.PURPLE.COLOR);
         }
         this.food[foodId] = food;
         this.boardOccupancyService.addFoodOccupancy(food.id, food.coordinate);
