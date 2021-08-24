@@ -17,6 +17,13 @@ const ServerConfig = {
             POINTS: 1,
             GROWTH: 1,
         },
+        PURPLE: {
+            TYPE: 'PURPLE',
+            COLOR: 'purple',
+            POINTS: 2,
+            GROWTH: 2,
+            SPAWN_RATE: 0.5,
+        },
         SUPER: {
             TYPE: 'SUPER',
             COLOR: 'green',
@@ -37,13 +44,6 @@ const ServerConfig = {
             POINTS: 1,
             GROWTH: 1,
             SPAWN_RATE: 0.05,
-        },
-        PURPLE: {
-            TYPE: 'NORMAL',
-            COLOR: 'purple',
-            POINTS: 2,
-            GROWTH: 2,
-            SPAWN_RATE: 0.5,
         },
     },
     IO: {
