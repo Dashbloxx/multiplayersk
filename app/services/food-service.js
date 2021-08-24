@@ -82,6 +82,8 @@ class FoodService {
         let food;
         if (Math.random() < ServerConfig.FOOD.GOLDEN.SPAWN_RATE) {
             food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.GOLDEN.TYPE, ServerConfig.FOOD.GOLDEN.COLOR);
+        } else if (Math.random() < ServerConfig.FOOD.SWAP.SPAWN_RATE) {
+            food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.SWAP.TYPE, ServerConfig.FOOD.SWAP.COLOR);
         } else if (Math.random() < ServerConfig.FOOD.SUPER.SPAWN_RATE) {
             food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.SUPER.TYPE, ServerConfig.FOOD.SUPER.COLOR);
         } else {
