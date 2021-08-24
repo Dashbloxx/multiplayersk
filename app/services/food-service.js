@@ -30,31 +30,6 @@ class FoodService {
             playerWhoConsumedFood.grow(ServerConfig.FOOD[food.type].GROWTH);
             const points = ServerConfig.FOOD[food.type].POINTS;
             this.playerStatBoard.increaseScore(playerWhoConsumedFood.id, points);
-
-            if (food.type === ServerConfig.FOOD.SWAP.TYPE && playerContainer.getNumberOfPlayers() > 1) {
-                const otherPlayer = playerContainer.getAnActivePlayer(playerWhoConsumedFood.id);
-                this.boardOccupancyService.removePlayerOccupancy(otherPlayer.id, otherPlayer.getSegments());
-                this.boardOccupancyService.removePlayerOccupancy(playerWhoConsumedFood.id, playerWhoConsumedFood.getSegments());
-                const otherPlayerDirection = otherPlayer.direction;
-                const otherPlayerDirectionBeforeMove = otherPlayer.directionBeforeMove;
-                const otherPlayerSegments = otherPlayer.getSegments();
-                const otherPlayerGrowAmount = otherPlayer.growAmount;
-                otherPlayer.swapBodies(playerWhoConsumedFood.getSegments(), playerWhoConsumedFood.direction,
-                    playerWhoConsumedFood.directionBeforeMove, playerWhoConsumedFood.growAmount);
-                playerWhoConsumedFood.swapBodies(otherPlayerSegments, otherPlayerDirection,
-                    otherPlayerDirectionBeforeMove, otherPlayerGrowAmount);
-
-                this.boardOccupancyService.addPlayerOccupancy(otherPlayer.id, otherPlayer.getSegments());
-                this.boardOccupancyService.addPlayerOccupancy(playerWhoConsumedFood.id, playerWhoConsumedFood.getSegments());
-                this.notificationService.notifyPlayerFoodCollected(playerWhoConsumedFood.id,
-                    'Swap!', food.coordinate, food.color, true);
-                this.notificationService.notifyPlayerFoodCollected(otherPlayer.id,
-                    'Swap!', playerWhoConsumedFood.getHeadCoordinate(), food.color, true);
-            } else {
-                this.notificationService.notifyPlayerFoodCollected(playerWhoConsumedFood.id,
-                    `+${points}`, food.coordinate, food.color);
-            }
-
             this.removeFood(foodConsumed.foodId);
             foodToRespawn++;
         }
@@ -82,8 +57,6 @@ class FoodService {
         let food;
         if (Math.random() < ServerConfig.FOOD.GOLDEN.SPAWN_RATE) {
             food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.GOLDEN.TYPE, ServerConfig.FOOD.GOLDEN.COLOR);
-        } else if (Math.random() < ServerConfig.FOOD.SWAP.SPAWN_RATE) {
-            food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.SWAP.TYPE, ServerConfig.FOOD.SWAP.COLOR);
         } else if (Math.random() < ServerConfig.FOOD.SUPER.SPAWN_RATE) {
             food = new Food(foodId, randomUnoccupiedCoordinate, ServerConfig.FOOD.SUPER.TYPE, ServerConfig.FOOD.SUPER.COLOR);
         } else {
